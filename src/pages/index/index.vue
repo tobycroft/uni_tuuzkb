@@ -86,11 +86,12 @@ export default {
   },
   mounted() {
     // 从 storage 中获取 IP 和端口号
-    const url = uni.getStorageSync('url');
+    const ip = uni.getStorageSync('config_ip');
+    const port = uni.getStorageSync('config_port');
 
     // 如果 IP 和端口号存在，连接 WebSocket
-    if (url) {
-      this.connectWebSocket(`${url}`);
+    if (ip && port) {
+      this.connectWebSocket(`ws://${ip}:${port}`);
     }
   },
   methods: {
