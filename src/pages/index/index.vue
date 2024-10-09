@@ -36,7 +36,7 @@ export default {
     return {
       connectionMessage: '未连接',
       connectionClass: 'status-failed', // 红色，连接失败时
-      progressValue: 0, // 大进度条
+      progressValue: 10, // 大进度条
       smallProgressValue: 0, // 小进度条
       selectedOption: 'close', // 默认选择的选项
       socket: null // WebSocket 对象
