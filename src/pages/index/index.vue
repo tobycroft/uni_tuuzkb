@@ -6,26 +6,60 @@
     </view>
 
     <!-- 表单区域 -->
-    <form @submit.prevent="submitData">
+    <form>
+      <button @click="updateData" class="submit-button">刷新</button>
       <!-- Progress 类型 -->
       <view class="form-group">
-        <text>进度条:</text>
-        <progress :value="progressValue" max="500" class="progress-bar"></progress>
-        <progress :value="smallProgressValue" max="100" class="progress-bar-small"></progress>
-      </view>
+        <view>进度条:</view>
+        <view>Endpoint_BeforeDelay:{{ Endpoint_BeforeDelay }}</view>
+        <view>Endpoint_delay:{{ Endpoint_delay }}</view>
+        <view>Endpoint_dynamic_mode:{{ Endpoint_dynamic_mode }}</view>
+        <view>LCD1:{{ LCD1 }}</view>
+        <view>LCD2:{{ LCD2 }}</view>
+        <view>LCD3:{{ LCD3 }}</view>
 
+        <!--        <progress :value="progressValue" max="500" class="progress-bar"></progress>-->
+        <!--        <progress :value="smallProgressValue" max="100" class="progress-bar-small"></progress>-->
+      </view>
+      <!-- 滑块显示当前大小 -->
+      <view class="slider-label">设定大小: {{ Endpoint_BeforeDelay }}</view>
+      <slider
+          v-model="Endpoint_BeforeDelay"
+          min="0"
+          max="100"
+          step="1"
+          show-value
+          activeColor="#3cc51f"
+          backgroundColor="#e5e5e5"
+          block-color="#3cc51f"
+          block-size="28"
+          @change="onSliderChange"
+      />
+      <view class="slider-label">设定大小: {{ Endpoint_delay }}</view>
+      <slider
+          v-model="Endpoint_delay"
+          min="0"
+          max="100"
+          step="1"
+          show-value
+          activeColor="#3cc51f"
+          backgroundColor="#e5e5e5"
+          block-color="#3cc51f"
+          block-size="28"
+          @change="onSliderChange"
+      />
       <!-- Radio 类型的选择器 -->
       <view class="form-group">
         <text>选项选择:</text>
         <view class="radio-group">
-          <button @click="selectOption('close')" :class="getOptionClass('close')">关闭</button>
-          <button @click="selectOption('A')" :class="getOptionClass('A')">A 选项</button>
-          <button @click="selectOption('B')" :class="getOptionClass('B')">B 选项</button>
+          <button @click="selectOption(0)" :class="getOptionClass(0)">关闭</button>
+          <button @click="selectOption(1)" :class="getOptionClass(1)">On-Q</button>
+          <button @click="selectOption(2)" :class="getOptionClass(2)">On-Whel</button>
         </view>
       </view>
 
       <!-- 提交按钮 -->
-      <button type="submit" class="submit-button">提交</button>
+      <button @click="submitData" class="submit-button">提交</button>
     </form>
   </view>
 </template>
@@ -35,10 +69,16 @@ export default {
   data() {
     return {
       connectionMessage: '未连接',
+      Endpoint_BeforeDelay: 0,
+      Endpoint_delay: 0,
+      Endpoint_dynamic_mode: 0,
+      LCD1: '',
+      LCD2: '',
+      LCD3: '',
       connectionClass: 'status-failed', // 红色，连接失败时
       progressValue: 10, // 大进度条
       smallProgressValue: 0, // 小进度条
-      selectedOption: 'close', // 默认选择的选项
+      Mode: 0, // 默认选择的选项
       socket: null // WebSocket 对象
     };
   },
@@ -53,6 +93,10 @@ export default {
     }
   },
   methods: {
+    onSliderChange(event) {
+      // 滑动结束时触发该事件，event.detail.value 为当前的值
+      console.log("Slider value:", event.detail.value);
+    },
     connectWebSocket(url) {
       // 创建 WebSocket 连接
       this.socket = uni.connectSocket({
@@ -71,6 +115,7 @@ export default {
       this.socket.onOpen(() => {
         this.connectionMessage = '连接成功';
         this.connectionClass = 'status-success';
+        this.updateData();
       });
 
       // 监听 WebSocket 错误事件
@@ -91,12 +136,24 @@ export default {
         this.connectionClass = 'status-failed'; // 红色，连接关闭
       });
     },
-
+    updateData() {
+      const data = {
+        route: "info",
+      };
+      this.socket.send({
+        data: JSON.stringify(data)
+      });
+    },
     // 更新表单数据
     updateFormData(data) {
       this.progressValue = data.progress || 0;
       this.smallProgressValue = data.smallProgress || 0;
-      this.selectedOption = data.selectedOption || 'close';
+      for (const i in data) {
+        if (this[i] !== null) {
+          this[i] = data[i];
+        }
+      }
+      console.log(data);
     },
 
     // 提交表单
@@ -104,9 +161,9 @@ export default {
       const dataToSend = {
         progress: this.progressValue,
         smallProgress: this.smallProgressValue,
-        selectedOption: this.selectedOption
+        Mode: this.Mode
       };
-
+      console.log(dataToSend)
       // 通过 WebSocket 发送数据
       if (this.socket) {
         this.socket.send({
@@ -117,12 +174,18 @@ export default {
 
     // 选项切换
     selectOption(option) {
-      this.selectedOption = option;
+      this.Mode = option;
+      this.socket.send({
+        data: JSON.stringify({
+          route: "semi-config",
+          Mode: option,
+        })
+      })
     },
 
     // 获取选项样式
     getOptionClass(option) {
-      return this.selectedOption === option ? 'option-selected' : 'option';
+      return this.Mode === option ? 'option-selected' : 'option';
     }
   }
 };
@@ -145,9 +208,11 @@ export default {
   padding: 10px;
   color: #fff;
 }
+
 .status-success {
   background-color: green;
 }
+
 .status-failed {
   background-color: red;
 }
@@ -156,10 +221,12 @@ export default {
 .form-group {
   margin-bottom: 20px;
 }
+
 .progress-bar {
   width: 100%;
   height: 25px;
 }
+
 .progress-bar-small {
   width: 100%;
   height: 10px;
@@ -170,6 +237,7 @@ export default {
   display: flex;
   justify-content: space-around;
 }
+
 button {
   flex: 1;
   margin: 5px;
@@ -180,10 +248,12 @@ button {
   font-size: 16px;
   text-align: center;
 }
+
 .option-selected {
   background-color: #3cc51f;
   color: #fff;
 }
+
 .submit-button {
   width: 100%;
   padding: 10px;
