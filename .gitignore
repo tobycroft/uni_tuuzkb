@@ -19,3 +19,11 @@ node_modules
 *.sln
 *.sw?
 /dist/dev/
+/dist/build/app/
+/dist/build/.nvue/
+/dist/build/app-plus/
+/dist/cache/
+/unpackage/
+/dist/build/quickapp-webview-union/
+/dist/build/
+/dist/release/*
