@@ -125,14 +125,14 @@ export default {
 
       // 监听 WebSocket 打开事件
       this.socket.onOpen(() => {
-        this.connectionMessage = '连接成功';
+        this.connectionMessage = '连接建立';
         this.connectionClass = 'status-success';
         this.updateData();
       });
 
       // 监听 WebSocket 错误事件
       this.socket.onError(() => {
-        this.connectionMessage = '连接失败';
+        this.connectionMessage = '连接错误';
         this.connectionClass = 'status-failed';
       });
 
@@ -152,7 +152,7 @@ export default {
 
       // 监听 WebSocket 关闭事件
       this.socket.onClose(() => {
-        this.connectionMessage = '连接关闭';
+        this.connectionMessage = '连接被关闭';
         this.connectionClass = 'status-failed'; // 红色，连接关闭
       });
     },
