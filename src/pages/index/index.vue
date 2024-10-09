@@ -57,9 +57,6 @@
           <button @click="selectOption(2)" :class="getOptionClass(2)">On-Whel</button>
         </view>
       </view>
-
-      <!-- 提交按钮 -->
-      <button @click="submitData" class="submit-button">提交</button>
     </form>
   </view>
 </template>
@@ -126,8 +123,16 @@ export default {
 
       // 监听 WebSocket 接收到的消息
       this.socket.onMessage((res) => {
-        const data = JSON.parse(res.data);
-        this.updateFormData(data); // 根据接收到的数据更新表单
+        switch (res.data) {
+          case 'update':
+            this.updateData();
+            break;
+
+          default:
+            const data = JSON.parse(res.data);
+            this.updateFormData(data); // 根据接收到的数据更新表单
+            break;
+        }
       });
 
       // 监听 WebSocket 关闭事件
@@ -156,29 +161,14 @@ export default {
       console.log(data);
     },
 
-    // 提交表单
-    submitData() {
-      const dataToSend = {
-        progress: this.progressValue,
-        smallProgress: this.smallProgressValue,
-        Mode: this.Mode
-      };
-      console.log(dataToSend)
-      // 通过 WebSocket 发送数据
-      if (this.socket) {
-        this.socket.send({
-          data: JSON.stringify(dataToSend)
-        });
-      }
-    },
-
     // 选项切换
     selectOption(option) {
       this.Mode = option;
       this.socket.send({
         data: JSON.stringify({
           route: "semi-config",
-          Mode: option,
+          type: "Mode",
+          'data': this.$data,
         })
       })
     },
