@@ -114,11 +114,11 @@ export default {
       this.socket = uni.connectSocket({
         url: url,
         success: () => {
-          this.connectionMessage = '连接成功';
+          this.connectionMessage = '连接成功✔';
           this.connectionClass = 'status-success'; // 绿色，连接成功
         },
         fail: () => {
-          this.connectionMessage = '连接失败';
+          this.connectionMessage = '连接失败×';
           this.connectionClass = 'status-failed'; // 红色，连接失败
         }
       });
