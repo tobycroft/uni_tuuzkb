@@ -8,18 +8,11 @@
       <!-- IP 地址或 URL 输入框 -->
       <input
           type="text"
-          placeholder="请输入 IP 地址 或 http(s) 地址"
-          v-model="ipAddress"
+          placeholder="请输入wsurl"
+          v-model="url"
           class="input-field"
       />
 
-      <!-- 端口号输入框 -->
-      <input
-          type="text"
-          placeholder="请输入端口号"
-          v-model="port"
-          class="input-field"
-      />
     </view>
 
     <!-- 设置按钮 -->
@@ -31,37 +24,31 @@
 export default {
   data() {
     return {
-      ipAddress: "", // 存储输入的IP地址或URL
-      port: "" // 存储输入的端口号
+      url: "", // 存储输入的IP地址或URL
     };
   },
   mounted() {
     // 页面加载时，从本地存储中获取之前保存的IP地址和端口号
-    const storedIp = uni.getStorageSync('config_ip');
-    const storedPort = uni.getStorageSync('config_port');
+    const url = uni.getStorageSync('url');
 
     // 如果存储中有值，设置到输入框中
-    if (storedIp) {
-      this.ipAddress = storedIp;
-    }
-    if (storedPort) {
-      this.port = storedPort;
+    if (url) {
+      this.url = url;
     }
   },
   methods: {
     setConfiguration() {
       // 校验输入是否有效
-      if (this.ipAddress === "" || this.port === "") {
+      if (this.url === "") {
         uni.showToast({
-          title: "请输入有效的 IP 地址和端口号",
+          title: "请输入有效的url",
           icon: "none"
         });
         return;
       }
 
       // 保存到本地存储
-      uni.setStorageSync("config_ip", this.ipAddress);
-      uni.setStorageSync("config_port", this.port);
+      uni.setStorageSync("url", this.url);
 
       uni.showToast({
         title: "设置已保存",
