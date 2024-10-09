@@ -42,11 +42,17 @@
             },
             /* ios打包配置 */
             "ios" : {
-                "dSYMs" : false
+                "dSYMs" : false,
+                "idfa" : true
             },
             /* SDK配置 */
-            "sdkConfigs" : {}
-        }
+            "sdkConfigs" : {},
+            "splashscreen" : {
+                "androidStyle" : "common"
+            }
+        },
+        "nvueLaunchMode" : "",
+        "renderer" : "native"
     },
     /* 快应用特有相关 */
     "quickapp" : {},
