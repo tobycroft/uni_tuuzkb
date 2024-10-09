@@ -7,7 +7,7 @@
 
     <!-- 表单区域 -->
     <form class="form">
-      <!--      <button @click="updateData" class="submit-button">刷新</button>-->
+      <button @click="reconnect" class="submit-button">连接</button>
       <!-- Progress 类型 -->
       <view class="form-group">
         <view>进度条:</view>
@@ -72,7 +72,7 @@
 export default {
   data() {
     return {
-      size:22,
+      size: 22,
       connectionMessage: '未连接',
       Endpoint_BeforeDelay: 0,
       Endpoint_delay: 0,
@@ -86,18 +86,22 @@ export default {
   },
   mounted() {
     // 从 storage 中获取 IP 和端口号
-    const ip = uni.getStorageSync('config_ip');
-    const port = uni.getStorageSync('config_port');
-
-    // 如果 IP 和端口号存在，连接 WebSocket
-    if (ip && port) {
-      this.connectWebSocket(`ws://${ip}:${port}`);
-    }
+    this.reconnect();
   },
   methods: {
-    onSliderChange(field,event) {
-        // 滑动结束时触发该事件，event.detail.value 为当前的值
-      if(this[field] !== event.detail.value){
+    reconnect() {
+      // 从 storage 中获取 IP 和端口号
+      const ip = uni.getStorageSync('config_ip');
+      const port = uni.getStorageSync('config_port');
+
+      // 如果 IP 和端口号存在，连接 WebSocket
+      if (ip && port) {
+        this.connectWebSocket(`ws://${ip}:${port}`);
+      }
+    },
+    onSliderChange(field, event) {
+      // 滑动结束时触发该事件，event.detail.value 为当前的值
+      if (this[field] !== event.detail.value) {
         this[field] = event.detail.value;
         console.log(`${field} value:`, event.detail.value);
         this.socket.send({
