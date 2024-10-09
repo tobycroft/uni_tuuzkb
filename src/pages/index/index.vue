@@ -6,8 +6,8 @@
     </view>
 
     <!-- 表单区域 -->
-    <form>
-      <button @click="updateData" class="submit-button">刷新</button>
+    <form class="form">
+      <!--      <button @click="updateData" class="submit-button">刷新</button>-->
       <!-- Progress 类型 -->
       <view class="form-group">
         <view>进度条:</view>
@@ -16,15 +16,11 @@
         <view>Endpoint_dynamic_mode:{{ Endpoint_dynamic_mode }}</view>
         <view>LCD1:{{ LCD1 }}</view>
         <view>LCD2:{{ LCD2 }}</view>
-        <view>LCD3:{{ LCD3 }}</view>
-
-        <!--        <progress :value="progressValue" max="500" class="progress-bar"></progress>-->
-        <!--        <progress :value="smallProgressValue" max="100" class="progress-bar-small"></progress>-->
       </view>
       <!-- 滑块显示当前大小 -->
       <view class="slider-label">设定大小: {{ Endpoint_BeforeDelay }}</view>
       <slider
-          v-model="Endpoint_BeforeDelay"
+          :value="Endpoint_BeforeDelay"
           min="0"
           max="100"
           step="1"
@@ -33,11 +29,11 @@
           backgroundColor="#e5e5e5"
           block-color="#3cc51f"
           block-size="28"
-          @change="onSliderChange"
+          @change="onSliderChange('Endpoint_BeforeDelay')"
       />
       <view class="slider-label">设定大小: {{ Endpoint_delay }}</view>
       <slider
-          v-model="Endpoint_delay"
+          :value="Endpoint_delay"
           min="0"
           max="100"
           step="1"
@@ -46,15 +42,26 @@
           backgroundColor="#e5e5e5"
           block-color="#3cc51f"
           block-size="28"
-          @change="onSliderChange"
+          @change="onSliderChange('Endpoint_delay')"
       />
       <!-- Radio 类型的选择器 -->
       <view class="form-group">
         <text>选项选择:</text>
         <view class="radio-group">
-          <button @click="selectOption(0)" :class="getOptionClass(0)">关闭</button>
-          <button @click="selectOption(1)" :class="getOptionClass(1)">On-Q</button>
-          <button @click="selectOption(2)" :class="getOptionClass(2)">On-Whel</button>
+          <button @click="modeOption(0)" :class="getModeClass(0)">关闭</button>
+          <button @click="modeOption(1)" :class="getModeClass(1)">On-Q</button>
+          <button @click="modeOption(2)" :class="getModeClass(2)">On-Whel</button>
+        </view>
+      </view>
+      <view class="form-group">
+        <text>选项选择:</text>
+        <view class="radio-group">
+          <button @click="endPointOption(0)" :class="getEndpointClass(0)">Ste</button>
+          <button @click="endPointOption(1)" :class="getEndpointClass(1)">Dym</button>
+          <button @click="endPointOption(2)" :class="getEndpointClass(2)">Wde</button>
+          <button @click="endPointOption(3)" :class="getEndpointClass(3)">Ato</button>
+          <button @click="endPointOption(4)" :class="getEndpointClass(4)">Atw</button>
+          <button @click="endPointOption(5)" :class="getEndpointClass(5)">Man</button>
         </view>
       </view>
     </form>
@@ -65,16 +72,14 @@
 export default {
   data() {
     return {
+      size:22,
       connectionMessage: '未连接',
       Endpoint_BeforeDelay: 0,
       Endpoint_delay: 0,
       Endpoint_dynamic_mode: 0,
       LCD1: '',
       LCD2: '',
-      LCD3: '',
       connectionClass: 'status-failed', // 红色，连接失败时
-      progressValue: 10, // 大进度条
-      smallProgressValue: 0, // 小进度条
       Mode: 0, // 默认选择的选项
       socket: null // WebSocket 对象
     };
@@ -90,9 +95,13 @@ export default {
     }
   },
   methods: {
-    onSliderChange(event) {
-      // 滑动结束时触发该事件，event.detail.value 为当前的值
-      console.log("Slider value:", event.detail.value);
+    onSliderChange(field) {
+      return (event) => {
+        // 滑动结束时触发该事件，event.detail.value 为当前的值
+        this[field] = event.detail.value;
+        console.log(`onSliderChange:`, field,);
+        console.log(`${field} value:`, event.detail.value);
+      };
     },
     connectWebSocket(url) {
       // 创建 WebSocket 连接
@@ -151,18 +160,16 @@ export default {
     },
     // 更新表单数据
     updateFormData(data) {
-      this.progressValue = data.progress || 0;
-      this.smallProgressValue = data.smallProgress || 0;
+      console.log(data);
       for (const i in data) {
         if (this[i] !== null) {
           this[i] = data[i];
         }
       }
-      console.log(data);
     },
 
     // 选项切换
-    selectOption(option) {
+    modeOption(option) {
       this.Mode = option;
       this.socket.send({
         data: JSON.stringify({
@@ -172,9 +179,22 @@ export default {
         })
       })
     },
-
+    // 选项切换
+    endPointOption(option) {
+      this.Endpoint_dynamic_mode = option;
+      this.socket.send({
+        data: JSON.stringify({
+          route: "semi-config",
+          type: "Endpoint_dynamic_mode",
+          'data': this.$data,
+        })
+      })
+    },
+    getEndpointClass(option) {
+      return this.Endpoint_dynamic_mode === option ? 'option-selected' : 'option';
+    },
     // 获取选项样式
-    getOptionClass(option) {
+    getModeClass(option) {
       return this.Mode === option ? 'option-selected' : 'option';
     }
   }
@@ -199,6 +219,15 @@ export default {
   color: #fff;
 }
 
+.slider-label {
+  font-size: 18px;
+  margin-bottom: 20px;
+}
+
+.slider {
+  width: 100%;
+}
+
 .status-success {
   background-color: green;
 }
@@ -210,6 +239,7 @@ export default {
 /* 表单样式 */
 .form-group {
   margin-bottom: 20px;
+  width: 100%;
 }
 
 .progress-bar {
@@ -252,5 +282,9 @@ button {
   font-size: 18px;
   border-radius: 5px;
   border: none;
+}
+
+.form {
+  width: 100%;
 }
 </style>
