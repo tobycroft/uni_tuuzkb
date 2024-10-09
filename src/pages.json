@@ -1,4 +1,7 @@
 {
+  "router": {
+    "mode": "history"
+  },
   "pages": [
     {
       "path": "pages/index/index",
