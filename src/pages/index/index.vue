@@ -145,11 +145,9 @@ export default {
   padding: 10px;
   color: #fff;
 }
-
 .status-success {
   background-color: green;
 }
-
 .status-failed {
   background-color: red;
 }
@@ -158,12 +156,10 @@ export default {
 .form-group {
   margin-bottom: 20px;
 }
-
 .progress-bar {
   width: 100%;
   height: 25px;
 }
-
 .progress-bar-small {
   width: 100%;
   height: 10px;
@@ -174,7 +170,6 @@ export default {
   display: flex;
   justify-content: space-around;
 }
-
 button {
   flex: 1;
   margin: 5px;
@@ -185,12 +180,10 @@ button {
   font-size: 16px;
   text-align: center;
 }
-
 .option-selected {
   background-color: #3cc51f;
   color: #fff;
 }
-
 .submit-button {
   width: 100%;
   padding: 10px;
