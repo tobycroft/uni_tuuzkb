@@ -18,31 +18,31 @@
         <view>LCD2:{{ LCD2 }}</view>
       </view>
       <!-- 滑块显示当前大小 -->
-      <view class="slider-label">设定大小: {{ Endpoint_BeforeDelay }}</view>
+      <view class="slider-label">前置时间: {{ Endpoint_BeforeDelay }}</view>
       <slider
           :value="Endpoint_BeforeDelay"
           min="0"
-          max="100"
+          max="200"
           step="1"
           show-value
           activeColor="#3cc51f"
           backgroundColor="#e5e5e5"
           block-color="#3cc51f"
           block-size="28"
-          @change="onSliderChange('Endpoint_BeforeDelay')"
+          @change="onSliderChange('Endpoint_BeforeDelay',$event)"
       />
-      <view class="slider-label">设定大小: {{ Endpoint_delay }}</view>
+      <view class="slider-label">间隔时间: {{ Endpoint_delay }}</view>
       <slider
           :value="Endpoint_delay"
           min="0"
-          max="100"
+          max="200"
           step="1"
           show-value
           activeColor="#3cc51f"
           backgroundColor="#e5e5e5"
           block-color="#3cc51f"
           block-size="28"
-          @change="onSliderChange('Endpoint_delay')"
+          @change="onSliderChange('Endpoint_delay',$event)"
       />
       <!-- Radio 类型的选择器 -->
       <view class="form-group">
@@ -95,13 +95,19 @@ export default {
     }
   },
   methods: {
-    onSliderChange(field) {
-      return (event) => {
+    onSliderChange(field,event) {
         // 滑动结束时触发该事件，event.detail.value 为当前的值
+      if(this[field] !== event.detail.value){
         this[field] = event.detail.value;
-        console.log(`onSliderChange:`, field,);
         console.log(`${field} value:`, event.detail.value);
-      };
+        this.socket.send({
+          data: JSON.stringify({
+            route: "semi-config",
+            type: field,
+            'data': this.$data
+          })
+        })
+      }
     },
     connectWebSocket(url) {
       // 创建 WebSocket 连接
