@@ -106,7 +106,7 @@ export default {
     CmdReset() {
       const data = {
         route: "kbd",
-        type:"reset",
+        type: "reset",
       };
       this.socket.send({
         data: JSON.stringify(data)
