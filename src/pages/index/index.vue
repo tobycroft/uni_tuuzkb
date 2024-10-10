@@ -11,9 +11,9 @@
       <!-- Progress 类型 -->
       <view class="form-group">
         <view>进度条:</view>
-        <view>Endpoint_BeforeDelay:{{ Endpoint_BeforeDelay }}</view>
-        <view>Endpoint_delay:{{ Endpoint_delay }}</view>
-        <view>Endpoint_dynamic_mode:{{ Endpoint_dynamic_mode }}</view>
+        <!--        <view>Endpoint_BeforeDelay:{{ Endpoint_BeforeDelay }}</view>-->
+        <!--        <view>Endpoint_delay:{{ Endpoint_delay }}</view>-->
+        <!--        <view>Endpoint_dynamic_mode:{{ Endpoint_dynamic_mode }}</view>-->
         <view>LCD1:{{ LCD1 }}</view>
         <view>LCD2:{{ LCD2 }}</view>
       </view>
@@ -64,6 +64,10 @@
           <button @click="endPointOption(5)" :class="getEndpointClass(5)">Man</button>
         </view>
       </view>
+
+      <view class="radio-group">
+        <button @click="CmdReset">重启</button>
+      </view>
     </form>
   </view>
 </template>
@@ -98,6 +102,15 @@ export default {
       if (ip && port) {
         this.connectWebSocket(`ws://${ip}:${port}`);
       }
+    },
+    CmdReset() {
+      const data = {
+        route: "kbd",
+        type:"reset",
+      };
+      this.socket.send({
+        data: JSON.stringify(data)
+      });
     },
     onSliderChange(field, event) {
       // 滑动结束时触发该事件，event.detail.value 为当前的值
