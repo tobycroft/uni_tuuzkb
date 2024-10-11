@@ -73,6 +73,7 @@
           <button @click="cmdFunc('cfg115k')">B115</button>
           <button @click="cmdFunc('cfg9k')">B9600</button>
           <button @click="cmdFunc('cfgget')">获取CFG</button>
+          <button @click="cmdFunc('setusb')">设定USBstr</button>
         </view>
       </view>
     </form>
