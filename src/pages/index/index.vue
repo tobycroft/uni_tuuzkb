@@ -68,8 +68,8 @@
       <view class="form-group">
         <text>PowerFunc:</text>
         <view class="radio-group">
-          <button @click="CmdReset">重启</button>
-          <button @click="CmdReset">重启</button>
+          <button @click="CmdFunc">重启</button>
+          <button @click="CmdFunc">重启</button>
         </view>
       </view>
     </form>
@@ -107,10 +107,10 @@ export default {
         this.connectWebSocket(`ws://${ip}:${port}`);
       }
     },
-    CmdReset() {
+    CmdFunc(type) {
       const data = {
         route: "kbd",
-        type: "reset",
+        type: type,
       };
       this.socket.send({
         data: JSON.stringify(data)
