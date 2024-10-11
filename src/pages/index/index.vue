@@ -69,7 +69,9 @@
         <text>PowerFunc:</text>
         <view class="radio-group">
           <button @click="cmdFunc('reset')">重启</button>
-          <button @click="cmdFunc('restart')">重启</button>
+          <button @click="cmdFunc('cfg3k')">B300</button>
+          <button @click="cmdFunc('cfg115k')">B115</button>
+          <button @click="cmdFunc('cfg9k')">B9600</button>
         </view>
       </view>
     </form>
