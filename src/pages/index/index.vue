@@ -72,6 +72,7 @@
           <button @click="cmdFunc('cfg3k')">B300</button>
           <button @click="cmdFunc('cfg115k')">B115</button>
           <button @click="cmdFunc('cfg9k')">B9600</button>
+          <button @click="cmdFunc('cfgget')">获取CFG</button>
         </view>
       </view>
     </form>
