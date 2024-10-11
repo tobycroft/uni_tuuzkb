@@ -65,8 +65,12 @@
         </view>
       </view>
 
-      <view class="radio-group">
-        <button @click="CmdReset">重启</button>
+      <view class="form-group">
+        <text>PowerFunc:</text>
+        <view class="radio-group">
+          <button @click="CmdReset">重启</button>
+          <button @click="CmdReset">重启</button>
+        </view>
       </view>
     </form>
   </view>
