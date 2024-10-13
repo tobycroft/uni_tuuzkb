@@ -69,6 +69,8 @@
         <text>BaseFunc:</text>
         <view class="radio-group">
           <button @click="cmdFunc('setting_reset')">重置</button>
+          <button @click="cmdFunc('bankey')">屏蔽键</button>
+          <button @click="cmdFunc('unbanall')">解除屏蔽</button>
         </view>
       </view>
 
