@@ -66,6 +66,13 @@
       </view>
 
       <view class="form-group">
+        <text>BaseFunc:</text>
+        <view class="radio-group">
+          <button @click="cmdFunc('gamereset')">重置</button>
+        </view>
+      </view>
+
+      <view class="form-group">
         <text>PowerFunc:</text>
         <view class="radio-group">
           <button @click="cmdFunc('reset')">重启</button>
