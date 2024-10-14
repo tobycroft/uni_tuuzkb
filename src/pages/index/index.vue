@@ -225,6 +225,16 @@ export default {
       this.socket.send({
         data: JSON.stringify(data)
       });
+
+      let that=this
+      setInterval(function () {
+        const data = {
+          route: "ping",
+        };
+        that.socket.send({
+          data: JSON.stringify(data)
+        });
+      },1000)
     },
     // 更新表单数据
     updateFormData(data) {
