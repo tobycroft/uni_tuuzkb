@@ -189,7 +189,7 @@ export default {
         this.connectionClass = 'status-failed'; // 红色，连接关闭
         setTimeout(function (a) {
           this.reconnect();
-        },3000);
+        },1000);
       });
     },
     updateData() {
