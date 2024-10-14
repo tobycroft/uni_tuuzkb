@@ -31,7 +31,7 @@
           block-size="28"
           @change="onSliderChange('Endpoint_BeforeDelay',$event)"
       />
-      <view class="slider-label">间隔时间: {{ Endpoint_delay }}</view>
+      <view class="slider-label">操作间隔: {{ Endpoint_delay }}</view>
       <slider
           :value="Endpoint_delay"
           min="0"
@@ -43,6 +43,19 @@
           block-color="#3cc51f"
           block-size="28"
           @change="onSliderChange('Endpoint_delay',$event)"
+      />
+      <view class="slider-label">系统Sep: {{ sep }}</view>
+      <slider
+          :value="sep"
+          min="0"
+          max="200"
+          step="1"
+          show-value
+          activeColor="#3cc51f"
+          backgroundColor="#e5e5e5"
+          block-color="#3cc51f"
+          block-size="28"
+          @change="onSliderChange('sep',$event)"
       />
       <!-- Radio 类型的选择器 -->
       <view class="form-group">
@@ -98,6 +111,7 @@ export default {
       Endpoint_BeforeDelay: 0,
       Endpoint_delay: 0,
       Endpoint_dynamic_mode: 0,
+      sep: 0,
       LCD1: '',
       LCD2: '',
       connectionClass: 'status-failed', // 红色，连接失败时
