@@ -113,10 +113,9 @@ export default {
     reconnect() {
       // 从 storage 中获取 IP 和端口号
       const ip = uni.getStorageSync('config_ip');
-      const port = uni.getStorageSync('config_port');
 
       // 如果 IP 和端口号存在，连接 WebSocket
-      if (ip && port) {
+      if (ip) {
         this.connectWebSocket(`${ip}`);
       }
     },
