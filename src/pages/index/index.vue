@@ -44,19 +44,7 @@
           block-size="28"
           @change="onSliderChange('Endpoint_delay',$event)"
       />
-      <view class="slider-label">系统Sep: {{ sep }}</view>
-      <slider
-          :value="sep"
-          min="0"
-          max="200"
-          step="1"
-          show-value
-          activeColor="#3cc51f"
-          backgroundColor="#e5e5e5"
-          block-color="#3cc51f"
-          block-size="28"
-          @change="onSliderChange('sep',$event)"
-      />
+
       <!-- Radio 类型的选择器 -->
       <view class="form-group">
         <text>选项选择:</text>
@@ -87,11 +75,31 @@
         </view>
       </view>
 
+      <view class="slider-label">系统Sep: {{ sep }}</view>
+      <slider
+          :value="sep"
+          min="1"
+          max="100"
+          step="1"
+          show-value
+          activeColor="#3cc51f"
+          backgroundColor="#e5e5e5"
+          block-color="#3cc51f"
+          block-size="28"
+          @change="onSliderChange('sep',$event)"
+      />
+
       <view class="form-group">
         <text>PowerFunc:</text>
         <view class="radio-group">
           <button @click="cmdFunc('reset')">重启</button>
+          <button @click="cmdFunc('05ac')">05AC</button>
           <button @click="cmdFunc('cfg3k')">B300</button>
+          <button @click="cmdFunc('cfg115k')">B115</button>
+
+        </view>
+
+        <view class="radio-group">
           <button @click="cmdFunc('cfg115k')">B115</button>
           <button @click="cmdFunc('cfg9k')">B9600</button>
           <button @click="cmdFunc('cfgget')">获取CFG</button>
@@ -111,7 +119,7 @@ export default {
       Endpoint_BeforeDelay: 0,
       Endpoint_delay: 0,
       Endpoint_dynamic_mode: 0,
-      sep: 0,
+      sep: 1,
       LCD1: '',
       LCD2: '',
       connectionClass: 'status-failed', // 红色，连接失败时
