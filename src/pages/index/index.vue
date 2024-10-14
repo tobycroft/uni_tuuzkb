@@ -15,6 +15,7 @@
         <!--        <view>Endpoint_delay:{{ Endpoint_delay }}</view>-->
         <!--        <view>Endpoint_dynamic_mode:{{ Endpoint_dynamic_mode }}</view>-->
         <view>PID:{{ pid }} | VID:{{ vid }}</view>
+        <view>MaskCtrl:{{ MaskCtrl }} | MaskButton:{{ MaskButton }}</view>
         <view>LCD1:{{ LCD1 }}</view>
         <view>LCD2:{{ LCD2 }}</view>
       </view>
@@ -115,6 +116,8 @@
 export default {
   data() {
     return {
+      MaskCtrl: '',
+      MaskButton: '',
       pid: '',
       vid: '',
       size: 22,
