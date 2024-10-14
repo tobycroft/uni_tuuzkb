@@ -117,7 +117,7 @@ export default {
 
       // 如果 IP 和端口号存在，连接 WebSocket
       if (ip && port) {
-        this.connectWebSocket(`ws://${ip}:${port}`);
+        this.connectWebSocket(`${ip}`);
       }
     },
     cmdFunc(type) {
