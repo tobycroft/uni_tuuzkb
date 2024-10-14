@@ -105,7 +105,6 @@
           <button @click="cmdFunc('05ac')">Def-05AC</button>
           <button @click="cmdFunc('alldef9k')">AllDef9k</button>
           <button @click="cmdFunc('setusb')">设定USBstr</button>
-
         </view>
       </view>
     </form>
@@ -287,6 +286,7 @@ export default {
   align-items: center;
   padding: 10px;
   height: 100vh;
+  margin-bottom: 50px;
 }
 
 /* 连接状态 */
