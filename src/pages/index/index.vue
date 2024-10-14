@@ -234,7 +234,7 @@ export default {
         that.socket.send({
           data: JSON.stringify(data)
         });
-      },1000)
+      },9000)
     },
     // 更新表单数据
     updateFormData(data) {
