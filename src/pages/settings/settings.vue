@@ -8,16 +8,8 @@
       <!-- IP 地址或 URL 输入框 -->
       <input
           type="text"
-          placeholder="请输入 IP 地址 或 http(s) 地址"
+          placeholder="请输入 ws开头的url 地址 "
           v-model="ipAddress"
-          class="input-field"
-      />
-
-      <!-- 端口号输入框 -->
-      <input
-          type="text"
-          placeholder="请输入端口号"
-          v-model="port"
           class="input-field"
       />
     </view>
