@@ -43,7 +43,7 @@ export default {
   methods: {
     setConfiguration() {
       // 校验输入是否有效
-      if (this.ipAddress === "" || this.port === "") {
+      if (this.ipAddress === "") {
         uni.showToast({
           title: "请输入有效的 IP 地址和端口号",
           icon: "none"
