@@ -173,10 +173,11 @@ export default {
     connectWebSocket(url) {
       // 创建 WebSocket 连接
       this.socket = uni.connectSocket({
+
         url: url,
         success: () => {
-          this.connectionMessage = '连接成功✔';
-          this.connectionClass = 'status-success'; // 绿色，连接成功
+          this.connectionMessage = '连接中……';
+          this.connectionClass = 'status-progress'; // 绿色，连接成功
         },
         fail: () => {
           this.connectionMessage = '连接失败×';
@@ -297,6 +298,10 @@ export default {
 
 .status-success {
   background-color: green;
+}
+
+.status-progress {
+  background-color: cornflowerblue;
 }
 
 .status-failed {
