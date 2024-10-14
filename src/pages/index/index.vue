@@ -90,8 +90,6 @@
 </template>
 
 <script>
-import {setTimeout} from "@dcloudio/uni-app-harmony/types/ohos/api/@internal/full";
-
 export default {
   data() {
     return {
@@ -189,9 +187,9 @@ export default {
       this.socket.onClose(() => {
         this.connectionMessage = '连接被关闭';
         this.connectionClass = 'status-failed'; // 红色，连接关闭
-        setTimeout(function () {
+        setTimeout(function (a) {
           this.reconnect();
-        }, 1000)
+        },3000);
       });
     },
     updateData() {
