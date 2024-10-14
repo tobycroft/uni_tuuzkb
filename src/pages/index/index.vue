@@ -187,9 +187,6 @@ export default {
       this.socket.onClose(() => {
         this.connectionMessage = '连接被关闭';
         this.connectionClass = 'status-failed'; // 红色，连接关闭
-        setTimeout(function (a) {
-          this.reconnect();
-        },1000);
       });
     },
     updateData() {
