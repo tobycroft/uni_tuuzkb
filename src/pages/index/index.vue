@@ -107,13 +107,13 @@
         <view class="radio-group">
           <button @click="cmdFunc('reset')">重启</button>
           <button @click="cmdFunc('cfgget')">获取CFG</button>
-          <button @click="cmdFunc('cfg3k')">B300</button>
-          <button @click="cmdFunc('cfg115k')">B115</button>
-          <button @click="cmdFunc('cfg9k')">B9600</button>
+          <button @click="cmdFunc('cfg3k')">B-300K</button>
+          <button @click="cmdFunc('cfg115k')">B-115k</button>
+          <button @click="cmdFunc('cfg9k')">B-9k</button>
         </view>
 
         <view class="radio-group">
-          <button @click="cmdFunc('05ac')">Def-05AC</button>
+          <button @click="cmdFunc('05ac')">Def-05AC-115k</button>
           <button @click="cmdFunc('alldef9k')">AllDef9k</button>
           <button @click="cmdFunc('setusb')">设定USBstr</button>
         </view>
