@@ -18,17 +18,22 @@
           <view>VID:{{ vid }}</view>
           <view>Baud:{{ baud }}</view>
         </view>
+        <hr/>
         <view class="radio-group">
           <view> MaskCtrl:</view>
           <view v-for="item in MaskCtrl" :key="item"> {{ item }}</view>
         </view>
+        <hr/>
         <view class="radio-group">
           MaskButton:
           <view class="radio-group" v-for="item in MaskButton" :key="item"> {{ item }}</view>
         </view>
+        <hr/>
         <view class="radio-group">LCD1:{{ LCD1 }}</view>
+        <hr/>
         <view class="radio-group">LCD2:{{ LCD2 }}</view>
       </view>
+      <hr/>
 
       <!-- 滑块显示当前大小 -->
       <view class="slider-label">前置时间: {{ Endpoint_BeforeDelay }}</view>
@@ -113,8 +118,8 @@
         </view>
 
         <view class="radio-group">
-          <button @click="cmdFunc('05ac')">Def-05AC-115k</button>
-          <button @click="cmdFunc('alldef9k')">AllDef9k</button>
+          <button @click="cmdFunc('05ac')">Def115</button>
+          <button @click="cmdFunc('alldef9k')">Def9k</button>
           <button @click="cmdFunc('setusb')">设定USBstr</button>
         </view>
       </view>
@@ -290,6 +295,10 @@ export default {
 </script>
 
 <style>
+hr {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
 /* 容器样式 */
 .container {
   display: flex;
@@ -297,7 +306,7 @@ export default {
   align-items: center;
   padding: 10px;
   height: 100vh;
-  margin-bottom: 8rem;
+  margin-bottom: 10rem;
 }
 
 /* 连接状态 */
