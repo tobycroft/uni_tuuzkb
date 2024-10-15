@@ -112,11 +112,16 @@
         <view class="radio-group">
           <button @click="cmdFunc('reset')">重启</button>
           <button @click="cmdFunc('cfgget')">获取CFG</button>
+        </view>
+
+        <text>CFG-Baud:</text>
+        <view class="radio-group">
           <button @click="cmdFunc('cfg3k')">B-300K</button>
           <button @click="cmdFunc('cfg115k')">B-115k</button>
           <button @click="cmdFunc('cfg9k')">B-9k</button>
         </view>
 
+        <text>DefFunc:</text>
         <view class="radio-group">
           <button @click="cmdFunc('05ac')">Def115</button>
           <button @click="cmdFunc('alldef9k')">Def9k</button>
@@ -299,14 +304,14 @@ hr {
   margin-top: 10px;
   margin-bottom: 10px;
 }
+
 /* 容器样式 */
 .container {
   display: flex;
   flex-direction: column;
   align-items: center;
   padding: 10px;
-  height: 100vh;
-  margin-bottom: 10rem;
+  height: 140vh;
 }
 
 /* 连接状态 */
