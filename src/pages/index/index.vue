@@ -383,12 +383,13 @@ button {
 
 .submit-button {
   width: 100%;
-  padding: 10px;
+  padding: 1px;
   background-color: #3cc51f;
   color: white;
   font-size: 18px;
   border-radius: 5px;
   border: none;
+  margin: 10px;
 }
 
 .form {
