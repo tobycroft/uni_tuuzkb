@@ -14,7 +14,7 @@
         <!--        <view>Endpoint_BeforeDelay:{{ Endpoint_BeforeDelay }}</view>-->
         <!--        <view>Endpoint_delay:{{ Endpoint_delay }}</view>-->
         <!--        <view>Endpoint_dynamic_mode:{{ Endpoint_dynamic_mode }}</view>-->
-        <view>PID:{{ pid }} | VID:{{ vid }}</view>
+        <view>PID:{{ pid }} | VID:{{ vid }}|Baud:{{ baud }}</view>
         <view>MaskCtrl:{{ MaskCtrl }} | MaskButton:{{ MaskButton }}</view>
         <view>LCD1:{{ LCD1 }}</view>
         <view>LCD2:{{ LCD2 }}</view>
@@ -119,7 +119,7 @@ export default {
       MaskButton: '',
       pid: '',
       vid: '',
-      size: 22,
+      baud: 0,
       connectionMessage: '未连接',
       Endpoint_BeforeDelay: 0,
       Endpoint_delay: 0,
