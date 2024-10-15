@@ -10,15 +10,26 @@
       <button @click="reconnect" class="submit-button">连接</button>
       <!-- Progress 类型 -->
       <view class="form-group">
-        <view>进度条:</view>
         <!--        <view>Endpoint_BeforeDelay:{{ Endpoint_BeforeDelay }}</view>-->
         <!--        <view>Endpoint_delay:{{ Endpoint_delay }}</view>-->
         <!--        <view>Endpoint_dynamic_mode:{{ Endpoint_dynamic_mode }}</view>-->
-        <view>PID:{{ pid }} | VID:{{ vid }}|Baud:{{ baud }}</view>
-        <view>MaskCtrl:{{ MaskCtrl }} | MaskButton:{{ MaskButton }}</view>
-        <view>LCD1:{{ LCD1 }}</view>
-        <view>LCD2:{{ LCD2 }}</view>
+        <view class="radio-group">
+          <view>PID:{{ pid }}</view>
+          <view>VID:{{ vid }}</view>
+          <view>Baud:{{ baud }}</view>
+        </view>
+        <view class="radio-group">
+          <view> MaskCtrl:</view>
+          <view v-for="item in MaskCtrl" :key="item"> {{ item }}</view>
+        </view>
+        <view class="radio-group">
+          MaskButton:
+          <view class="radio-group" v-for="item in MaskButton" :key="item"> {{ item }}</view>
+        </view>
+        <view class="radio-group">LCD1:{{ LCD1 }}</view>
+        <view class="radio-group">LCD2:{{ LCD2 }}</view>
       </view>
+
       <!-- 滑块显示当前大小 -->
       <view class="slider-label">前置时间: {{ Endpoint_BeforeDelay }}</view>
       <slider
@@ -225,7 +236,7 @@ export default {
         data: JSON.stringify(data)
       });
 
-      let that=this
+      let that = this
       setInterval(function () {
         const data = {
           route: "ping",
@@ -233,7 +244,7 @@ export default {
         that.socket.send({
           data: JSON.stringify(data)
         });
-      },9000)
+      }, 9000)
     },
     // 更新表单数据
     updateFormData(data) {
@@ -286,7 +297,7 @@ export default {
   align-items: center;
   padding: 10px;
   height: 100vh;
-  margin-bottom: 50px;
+  margin-bottom: 8rem;
 }
 
 /* 连接状态 */
