@@ -389,7 +389,7 @@ button {
   font-size: 18px;
   border-radius: 5px;
   border: none;
-  margin: 10px;
+  margin: 0;
 }
 
 .form {
