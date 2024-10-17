@@ -63,7 +63,6 @@
           @change="onSliderChange('Endpoint_delay',$event)"
       />
 
-      <!-- Radio 类型的选择器 -->
       <view class="form-group">
         <text>选项选择:</text>
         <view class="radio-group">
@@ -72,6 +71,7 @@
           <button @click="modeOption(2)" :class="getModeClass(2)">On-Whel</button>
         </view>
       </view>
+
       <view class="form-group">
         <text>选项选择:</text>
         <view class="radio-group">
@@ -127,6 +127,26 @@
           <button @click="cmdFunc('alldef9k')">Def9k</button>
           <button @click="cmdFunc('setusb')">设定USBstr</button>
         </view>
+
+        <view class="form-group">
+          <text>键盘模式:</text>
+          <view class="radio-group">
+            <button @click="kbModeOption(0)" :class="getKbModeClass(0)">M1</button>
+            <button @click="kbModeOption(1)" :class="getKbModeClass(1)">M2</button>
+            <button @click="kbModeOption(2)" :class="getKbModeClass(2)">M3</button>
+            <button @click="kbModeOption(4)" :class="getKbModeClass(3)">M4</button>
+          </view>
+        </view>
+
+        <view class="form-group">
+          <text>通信模式:</text>
+          <view class="radio-group">
+            <button @click="kbCfgOption(0)" :class="getKbCfgClass(0)">Norm</button>
+            <button @click="kbCfgOption(1)" :class="getKbCfgClass(1)">ASCII</button>
+            <button @click="kbCfgOption(2)" :class="getKbCfgClass(2)">Pass</button>
+          </view>
+        </view>
+
       </view>
     </form>
   </view>
@@ -150,7 +170,9 @@ export default {
       LCD2: '',
       connectionClass: 'status-failed', // 红色，连接失败时
       Mode: 0, // 默认选择的选项
-      socket: null // WebSocket 对象
+      socket: null,// WebSocket 对象
+      kbmode: 0,
+      kbcfg: 0,
     };
   },
   mounted() {
@@ -288,13 +310,39 @@ export default {
         })
       })
     },
+    kbModeOption(option) {
+      this.kbmode = option;
+      this.socket.send({
+        data: JSON.stringify({
+          route: "semi-config",
+          type: "kbmode",
+          'data': this.$data,
+        })
+      })
+    },
+    kbCfgOption(option) {
+      this.kbcfg = option;
+      this.socket.send({
+        data: JSON.stringify({
+          route: "semi-config",
+          type: "kbcfg",
+          'data': this.$data,
+        })
+      })
+    },
     getEndpointClass(option) {
       return this.Endpoint_dynamic_mode === option ? 'option-selected' : 'option';
     },
     // 获取选项样式
     getModeClass(option) {
       return this.Mode === option ? 'option-selected' : 'option';
-    }
+    }, // 获取选项样式
+    getKbModeClass(option) {
+      return this.kbmode === option ? 'option-selected' : 'option';
+    },
+    getKbCfgClass(option) {
+      return this.kbcfg === option ? 'option-selected' : 'option';
+    },
   }
 };
 </script>
@@ -311,7 +359,7 @@ hr {
   flex-direction: column;
   align-items: center;
   padding: 10px;
-  height: 140vh;
+  height: 160vh;
 }
 
 /* 连接状态 */
