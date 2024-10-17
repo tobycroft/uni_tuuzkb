@@ -134,7 +134,7 @@
             <button @click="kbModeOption(0)" :class="getKbModeClass(0)">M1</button>
             <button @click="kbModeOption(1)" :class="getKbModeClass(1)">M2</button>
             <button @click="kbModeOption(2)" :class="getKbModeClass(2)">M3</button>
-            <button @click="kbModeOption(4)" :class="getKbModeClass(3)">M4</button>
+            <button @click="kbModeOption(3)" :class="getKbModeClass(3)">M4</button>
           </view>
         </view>
 
