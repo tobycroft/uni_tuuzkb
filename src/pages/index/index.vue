@@ -36,7 +36,7 @@
       <hr/>
 
       <!-- 滑块显示当前大小 -->
-      <view class="slider-label">前置时间: {{ Endpoint_BeforeDelay_Random }}</view>
+      <view class="slider-label">前置震动: {{ Endpoint_BeforeDelay_Random }}</view>
       <slider
           :value="Endpoint_BeforeDelay_Random"
           min="0"
