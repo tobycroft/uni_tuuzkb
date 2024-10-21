@@ -36,11 +36,25 @@
       <hr/>
 
       <!-- 滑块显示当前大小 -->
+      <view class="slider-label">前置时间: {{ Endpoint_BeforeDelay_Random }}</view>
+      <slider
+          :value="Endpoint_BeforeDelay_Random"
+          min="0"
+          max="30"
+          step="1"
+          show-value
+          activeColor="#3cc51f"
+          backgroundColor="#e5e5e5"
+          block-color="#3cc51f"
+          block-size="28"
+          @change="onSliderChange('Endpoint_BeforeDelay_Random',$event)"
+      />
+
       <view class="slider-label">前置时间: {{ Endpoint_BeforeDelay }}</view>
       <slider
           :value="Endpoint_BeforeDelay"
           min="0"
-          max="200"
+          max="50"
           step="1"
           show-value
           activeColor="#3cc51f"
@@ -49,6 +63,7 @@
           block-size="28"
           @change="onSliderChange('Endpoint_BeforeDelay',$event)"
       />
+
       <view class="slider-label">操作间隔: {{ Endpoint_delay }}</view>
       <slider
           :value="Endpoint_delay"
@@ -162,6 +177,7 @@ export default {
       vid: '',
       baud: 0,
       connectionMessage: '未连接',
+      Endpoint_BeforeDelay_Random: 0,
       Endpoint_BeforeDelay: 0,
       Endpoint_delay: 0,
       Endpoint_dynamic_mode: 0,
