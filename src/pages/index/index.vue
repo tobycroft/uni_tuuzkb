@@ -112,7 +112,7 @@
       <slider
           :value="sep"
           min="1"
-          max="100"
+          max="50"
           step="1"
           show-value
           activeColor="#3cc51f"
