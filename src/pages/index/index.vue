@@ -196,7 +196,6 @@ export default {
   },
   mounted() {
     // 从 storage 中获取 IP 和端口号
-    this.setWakeLock();
     this.reconnect();
   },
   methods: {
@@ -251,6 +250,7 @@ export default {
       this.socket.onOpen(() => {
         this.connectionMessage = '连接建立';
         this.connectionClass = 'status-success';
+        this.setWakeLock();
         this.updateData();
       });
 
