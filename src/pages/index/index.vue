@@ -374,7 +374,7 @@ export default {
         console.log('唤醒锁定已激活');
         this.wakeLock.addEventListener('release', () => {
           this.wakeLock = null;
-          this.wake = '唤醒锁定已激活';
+          this.wake = '唤醒锁定已释放';
           console.log('唤醒锁定已释放');
         });
       }).catch((err) => {
