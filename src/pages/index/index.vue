@@ -14,6 +14,7 @@
         <!--        <view>Endpoint_delay:{{ Endpoint_delay }}</view>-->
         <!--        <view>Endpoint_dynamic_mode:{{ Endpoint_dynamic_mode }}</view>-->
         <view class="radio-group">
+          <view>不息屏:{{ wake }}</view>
           <view>PID:{{ pid }}</view>
           <view>VID:{{ vid }}</view>
           <view>Baud:{{ baud }}</view>
@@ -171,6 +172,8 @@
 export default {
   data() {
     return {
+      wake: null,
+      wakeLock: null,
       MaskCtrl: '',
       MaskButton: '',
       pid: '',
@@ -193,6 +196,7 @@ export default {
   },
   mounted() {
     // 从 storage 中获取 IP 和端口号
+    this.setWakeLock();
     this.reconnect();
   },
   methods: {
@@ -358,6 +362,24 @@ export default {
     },
     getKbCfgClass(option) {
       return this.kbcfg === option ? 'option-selected' : 'option';
+    },
+    setWakeLock() {
+      if (this.wakeLock) {
+        return;
+      }
+
+      navigator.wakeLock.request('screen').then(result => {
+        this.wakeLock = result;
+        this.wake = '唤醒锁定已激活';
+        console.log('唤醒锁定已激活');
+        this.wakeLock.addEventListener('release', () => {
+          this.wakeLock = null;
+          this.wake = '唤醒锁定已激活';
+          console.log('唤醒锁定已释放');
+        });
+      }).catch((err) => {
+        console.error(`<span class="red">唤醒锁定失败：${err.message}</span>`);
+      });
     },
   }
 };
